@@ -1,0 +1,31 @@
+{% apply spaceless %}
+
+{% set users = craft.users %}
+
+{% if options.startDate and options.endDate %}
+	{% set users = users.dateCreated(['and','>= ' ~ options.startDate|date('c'),'<= '~ options.endDate|date('Y-m-d 23:59:59')|date('c')]) %}
+{% elseif options.startDate %}
+	{% set users = users.dateCreated('>= ' ~ options.startDate|date('c')) %}
+{% elseif options.endDate %}
+	{% set users = users.dateCreated('<= '~ options.endDate|date('Y-m-d 23:59:59')|date('c')) %}
+{% endif %}
+
+{% if options.userGroupId %}
+	{% set users = users.userGroupId(options.userGroupId) %}
+{% endif %}
+
+{% set users = users.limit(null).all() %}
+
+[
+	{% for user in users %}
+		{
+			"id":"{{ user.id }}",
+			"firstName":"{{ user.firstName }}",
+			"lastName":"{{ user.lastName }}",
+			"date":"{{ user.dateCreated|date('ATOM') }}",
+			"email":"{{ user.email }}"
+		}{{ not loop.last ? ',' }}
+	{% endfor %}
+]
+
+{% endapply %}

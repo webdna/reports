@@ -1,0 +1,38 @@
+{% import "_includes/forms" as forms %}
+
+{% set userGroups = [] %}
+{% for group in craft.app.userGroups.getAllUserGroups() %}
+	{% set userGroups = userGroups|merge([{
+		label: group.name,
+		value: group.id,
+	}]) %}
+{% endfor %}
+
+
+
+{{ forms.dateField({
+	id: 'startDate',
+	label: "Start Date"|t,
+	name: 'options[startDate]',
+	value: options.startDate ?? "",
+	errors: report.getErrors('options.startDate')
+}) }}
+
+{{ forms.dateField({
+	id: 'endDate',
+	label: "End Date"|t,
+	name: 'options[endDate]',
+	value: options.endDate ?? "",
+	errors: report.getErrors('options.endDate')
+}) }}
+
+{{ forms.checkboxSelectField({
+	id: 'userGroupId',
+	label: "User Group"|t,
+	name: 'options[userGroupId]',
+	options: userGroups,
+	values: options.userGroupId ?? null,
+	errors: report.getErrors('userGroupId'),
+	showAllOption: true,
+}) }}
+

@@ -1,0 +1,47 @@
+{% extends "_layouts/cp" %}
+{% import "_includes/forms" as forms %}
+
+{% if report.id > 0 and not currentUser.can('reports-viewReports') %}
+	{% redirect 'reports' %}
+{% endif %}
+{% if report.id == null and not currentUser.can('reports-editReports') %}
+	{% redirect 'reports' %}
+{% endif %}
+
+
+{% set title = report.id ? "Edit report" : "Create " ~ report.type|replace('_', ' ')|title ~ " report" %}
+
+{% set crumbs = [
+	{ label: "Reports"|t, url: url('reports') }
+] %}
+
+{% set fullPageForm = true %}
+
+{% block content %}
+
+	<input type="hidden" name="action" value="reports/reports/save" />
+	<input type="hidden" name="type" value="{{ report.type }}" />
+
+	{% if report.id %}
+		<input type="hidden" name="id" value="{{ report.id }}"/>
+	{% endif %}
+
+	{{ forms.textField({
+		first: true,
+		label: "Name"|t,
+		instructions: "What this report will be called in the CP."|t,
+		id: 'name',
+		name: 'name',
+		value: report.name,
+		errors: report.getErrors('name'),
+		autofocus: true,
+		required: true
+	}) }}
+
+
+	<hr>
+
+	<h2>Options</h2>
+	{{ options|raw }}
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "_layouts/cp" %}
+
+
+{% set title = "Report: "~report.name %}
+
+{% set crumbs = [
+	{ label: "Reports"|t, url: url('reports') }
+] %}
+
+
+{% block actionButton %}
+  {% if currentUser.can('reports-exportReports') %}
+  <div class="buttons right">
+	<button type="button" id="export-btn" class="btn" data-id="{{report.id}}">{{ 'Export…'|t('app') }}</button>
+  </div>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<table class="data fullwidth" data-sortable>
+	<thead>
+		<tr>
+			<th class="orderable">Id</th>
+			<th class="orderable">First Name</th>
+			<th class="orderable">Last Name</th>
+			<th class="orderable">Email</th>
+			<th class="orderable">Date</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for user in report.data %}
+		<tr>
+			<td><a href="/admin/users/{{ user.id }}">{{ user.id }}</a></td>
+			<td>{{ user.firstName }}</td>
+			<td>{{ user.lastName }}</td>
+			<td>{{ user.email }}</td>
+			<td>{{ user.date }}</td>
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sortable/0.8.0/js/sortable.min.js" integrity="sha512-DEcSaL0BWApJ//v7ZfqAI04nvK+NQcUVwrrx/l1x7OJgU0Cwbq7e459NBMzLPrm8eLPzAwBtiJJS4AvLZDZ8xA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+{% endblock %}
+
+{% js %}
+	new Reports.Export($('#main'));
+{% endjs %}

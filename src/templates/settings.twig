@@ -1,0 +1,15 @@
+
+{% import "_includes/forms" as forms %}
+
+{{ forms.autosuggestField({
+	first: true,
+	label: 'Template Path',
+	instructions: 'The template path to the reports folder.',
+	id: 'templatePath',
+	name: 'templatePath',
+	placeholder: '_reports',
+	value: settings.templatePath,
+	errors: settings.getErrors('templatePath'),
+	suggestEnvVars: true,
+	autofocus: true,
+}) }}
