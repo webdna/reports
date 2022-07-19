@@ -1,4 +1,8 @@
 <svg width="70" height="70" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="35" cy="35" r="35" fill="#643EFF"/>
-<text x="50%" y="53%" fill="white" font-size="38" font-family="sans-serif" font-weight="600" text-anchor="middle" alignment-baseline="middle" style="letter-spacing:-2; user-select:none;">R</text>
+<circle cx="35" cy="35" r="35" fill="black"/>
+<path d="M39.5 16H24.7C23.7187 16 22.7776 16.3898 22.0837 17.0837C21.3898 17.7776 21 18.7187 21 19.7V49.3C21 50.2813 21.3898 51.2224 22.0837 51.9163C22.7776 52.6102 23.7187 53 24.7 53H46.9C47.8813 53 48.8224 52.6102 49.5163 51.9163C50.2102 51.2224 50.6 50.2813 50.6 49.3V27.1L39.5 16Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M39.5001 16V27.1H50.6001" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M43.2 36.3506H28.4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M43.2 43.75H28.4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M32.1 28.9502H30.25H28.4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
