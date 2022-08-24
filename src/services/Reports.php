@@ -14,6 +14,7 @@ use webdna\reports\Reports as Plugin;
 use webdna\reports\models\Report as ReportModel;
 use webdna\reports\records\Report as ReportRecord;
 use webdna\reports\queue\GenerateReport;
+use webdna\reports\assetbundles\ReportsAsset;
 
 use Craft;
 use craft\base\Component;
@@ -81,6 +82,8 @@ class Reports extends Component
 		$record->data = $model->data;
 		$record->lastGenerated = $model->lastGenerated;
 		$record->isGenerating = $model->isGenerating;
+		
+		//Craft::dd($record->options);
 	
 		$record->save(false);
 	
@@ -139,7 +142,15 @@ class Reports extends Component
 	
 	public function getOptions(ReportModel $report): ?string
 	{
-		return $this->renderTemplate($report, 'options');
+		$view = Craft::$app->getView();
+		$view->registerAssetBundle(ReportsAsset::class);
+			
+		$options = $view->renderTemplate('reports/options', [
+			'options' => $report->parsedOptions,
+			'report' => $report,
+		]);
+		
+		return $options.$this->renderTemplate($report, 'options');
 	}
 	
 	public function renderTemplate(ReportModel $report, string $template): ?string
@@ -149,6 +160,7 @@ class Reports extends Component
 		$view = Craft::$app->getView();
 		$oldMode = $view->getTemplateMode();
 		$view->setTemplateMode(View::TEMPLATE_MODE_SITE);
+		
 			
 		$html = $view->renderTemplate($path."/".$template, [
 			'options' => $report->parsedOptions,

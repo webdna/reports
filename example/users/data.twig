@@ -1,14 +1,6 @@
 {% apply spaceless %}
 
-{% set users = craft.users %}
-
-{% if options.startDate and options.endDate %}
-	{% set users = users.dateCreated(['and','>= ' ~ options.startDate|date('c'),'<= '~ options.endDate|date('Y-m-d 23:59:59')|date('c')]) %}
-{% elseif options.startDate %}
-	{% set users = users.dateCreated('>= ' ~ options.startDate|date('c')) %}
-{% elseif options.endDate %}
-	{% set users = users.dateCreated('<= '~ options.endDate|date('Y-m-d 23:59:59')|date('c')) %}
-{% endif %}
+{% set users = craft.reports.configure(craft.users, 'dateUpdated', options) %}
 
 {% if options.userGroupId %}
 	{% set users = users.userGroupId(options.userGroupId) %}

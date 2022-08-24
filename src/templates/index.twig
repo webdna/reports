@@ -33,6 +33,7 @@
 		<table id="reports" class="data fullwidth collapsible">
 			<thead>
 			<th scope="col">{{ "Name"|t }}</th>
+			<th scope="col">{{ "Range"|t }}</th>
 			<th scope="col">{{ "Type"|t }}</th>
 			<th scope="col">{{ "Date"|t }}</th>
 			<td class="thin"></td>
@@ -49,6 +50,7 @@
 						{{ report.name|t }}
 						{% endif %}
 					</th>
+					<td data-title="{{ 'Range'|t }}">{{ report.options|json_decode.dateRange.type }}</td>
 					<td data-title="{{ 'Type'|t }}"><code>{{ report.type }}</code></td>
 					<td data-title="{{ 'Date'|t }}" data-status>
 						{% if report.lastGenerated ?? null %}

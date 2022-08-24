@@ -93,21 +93,30 @@ class ReportsController extends Controller
 	
 		$request = Craft::$app->getRequest();
 	
-		$id = $request->getParam('id');
-		$report = Reports::$plugin->service->getReportById($id);
-	
-		if (!$report) {
-			$report = new ReportModel();
+		$report = new Report();
+		if ($id = $request->getParam('id')) {
+			$report = Reports::$plugin->service->getReportById($id);
 		}
 	
 		$options = $request->getParam('options',[]);
 	
 		foreach($options as $key => $option)
 		{
+			
 			if (is_array($option) && array_key_exists('date', $option)) {
 				$options[$key] = DateTimeHelper::toIso8601($option);
 			}
+			if (!empty($option['startDate'])) {
+				//$options[$key]['startDate'] = DateTimeHelper::toIso8601(DateTimeHelper::toDateTime($option['startDate']));
+				$options[$key]['startDate'] = DateTimeHelper::toIso8601($option['startDate']);
+				//Craft::dd(DateTimeHelper::toDateTime($option['startDate']));
+			}
+			if (!empty($option['endDate'])) {
+				$options[$key]['endDate'] = DateTimeHelper::toIso8601($option['endDate']);
+			}
 		}
+		
+		//Craft::dd($options);
 	
 		$user = Craft::$app->getUser()->getIdentity();
 	

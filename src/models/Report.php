@@ -64,26 +64,10 @@ class Report extends Model
 	{
 		$options = Json::decodeIfJson($this->options);
 	
-		if ($options['startDate']) {
-			if ($options['startDate'] == '') {
-				$this->addError('options.startDate', 'Start date is required');
-			}
-		} else {
-			//$this->addError('options.startDate', 'Start date is required');
-		}
-	
-		if ($options['endDate']) {
-			if ($options['endDate'] == '') {
-				$this->addError('options.endDate', 'End date is required');
-			}
-		} else {
-			//$this->addError('options.endDate', 'End date is required');
-		}
-	
-		if ($options['startDate'] && $options['endDate']) {
-			if ($options['startDate'] > $options['endDate']) {
+		if (!empty($options['dateRange']['startDate']) && !empty($options['dateRange']['endDate'])) {
+			if ($options['dateRange']['startDate'] > $options['dateRange']['endDate']) {
 				$this->addError(
-					'options.endDate',
+					'options.dateRange.endDate',
 					'End date must be after the start date'
 				);
 			}
