@@ -177,11 +177,16 @@ class Reports
         return null;
     }
     
-    public function update($id, $data)
+    public function update($id, $data = null)
     {
-        $data = StringHelper::replaceAll($data, ["\n","\t","\r"], ['','','']);
-        $data = Json::encode($data);
-            
-        Craft::$app->db->createCommand('UPDATE `reports` SET `data` = CONCAT(data, '.$data.') WHERE id = '.$id)->execute();
+        if ($data == null) {
+            Craft::$app->db->createCommand('UPDATE `reports` SET `data` = "" WHERE id = '.$id)->execute();
+        } else {
+        
+            $data = StringHelper::replaceAll($data, ["\n","\t","\r"], ['','','']);
+            $data = Json::encode($data);
+                
+            Craft::$app->db->createCommand('UPDATE `reports` SET `data` = CONCAT(data, '.$data.') WHERE id = '.$id)->execute();
+        }
     }
 }
