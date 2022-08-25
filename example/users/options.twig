@@ -1,7 +1,7 @@
-{% import "_includes/forms" as forms %}
+{% set cp = create("craft\\helpers\\Cp") %}
 
 {% set userGroups = [] %}
-{% for group in craft.app.userGroups.getAllUserGroups() %}
+{% for group in craft.app.userGroups.getAllGroups() %}
 	{% set userGroups = userGroups|merge([{
 		label: group.name,
 		value: group.id,
@@ -9,24 +9,7 @@
 {% endfor %}
 
 
-
-{{ forms.dateField({
-	id: 'startDate',
-	label: "Start Date"|t,
-	name: 'options[startDate]',
-	value: options.startDate ?? "",
-	errors: report.getErrors('options.startDate')
-}) }}
-
-{{ forms.dateField({
-	id: 'endDate',
-	label: "End Date"|t,
-	name: 'options[endDate]',
-	value: options.endDate ?? "",
-	errors: report.getErrors('options.endDate')
-}) }}
-
-{{ forms.checkboxSelectField({
+{{ raw(cp.checkboxSelectFieldHtml({
 	id: 'userGroupId',
 	label: "User Group"|t,
 	name: 'options[userGroupId]',
@@ -34,5 +17,4 @@
 	values: options.userGroupId ?? null,
 	errors: report.getErrors('userGroupId'),
 	showAllOption: true,
-}) }}
-
+})) }}

@@ -12,6 +12,7 @@ namespace webdna\reports;
 
 use webdna\reports\models\Settings;
 use webdna\reports\services\Reports as ReportsService;
+use webdna\reports\variables\Reports as ReportsVariable;
 
 use Craft;
 use craft\base\Plugin;
@@ -19,6 +20,7 @@ use craft\console\Application as ConsoleApplication;
 use craft\events\RegisterComponentTypesEvent;
 use craft\events\RegisterUrlRulesEvent;
 use craft\events\RegisterUserPermissionsEvent;
+use craft\web\twig\variables\CraftVariable;
 use craft\services\UserPermissions;
 use craft\web\UrlManager;
 
@@ -78,6 +80,16 @@ class Reports extends Plugin
 						'label' => Craft::t('reports', 'Export Reports'),
 					],
 				];
+			}
+		);
+		
+		Event::on(
+			CraftVariable::class, 
+			CraftVariable::EVENT_INIT, 
+			function (Event $event) {
+				/** @var CraftVariable $variable */
+				$variable = $event->sender;
+				$variable->set('reports', ReportsVariable::class);
 			}
 		);
 		

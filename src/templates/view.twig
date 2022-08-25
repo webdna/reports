@@ -19,3 +19,8 @@
 {% block content %}
 	{{ raw(data) }}
 {% endblock %}
+
+
+{% js %}
+  new Reports.Export($('#main'));
+{% endjs %}
