@@ -99,6 +99,7 @@ class ReportsController extends Controller
 		}
 	
 		$options = $request->getParam('options',[]);
+		
 	
 		foreach($options as $key => $option)
 		{
@@ -107,12 +108,12 @@ class ReportsController extends Controller
 				$options[$key] = DateTimeHelper::toIso8601($option);
 			}
 			if (!empty($option['startDate'])) {
-				//$options[$key]['startDate'] = DateTimeHelper::toIso8601(DateTimeHelper::toDateTime($option['startDate']));
-				$options[$key]['startDate'] = DateTimeHelper::toIso8601($option['startDate']);
-				//Craft::dd(DateTimeHelper::toDateTime($option['startDate']));
+				//$options[$key]['startDate'] = DateTimeHelper::toIso8601($option['startDate']);
+				$options[$key]['startDate'] = (new \DateTime($option['startDate']))->format('Y-m-d');
 			}
 			if (!empty($option['endDate'])) {
-				$options[$key]['endDate'] = DateTimeHelper::toIso8601($option['endDate']);
+				//$options[$key]['endDate'] = DateTimeHelper::toIso8601($option['endDate']);
+				$options[$key]['endDate'] = (new \DateTime($option['endDate']))->format('Y-m-d');
 			}
 		}
 		

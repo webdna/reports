@@ -17,7 +17,7 @@ use Craft;
 use craft\queue\BaseJob;
 use craft\helpers\Json;
 use craft\helpers\StringHelper;
-
+use craft\helpers\Db;
 
 class GenerateReport extends BaseJob
 {
@@ -37,14 +37,15 @@ class GenerateReport extends BaseJob
 
 			$data = StringHelper::replaceAll($data, ["\n","\t","\r"], ['','','']);
 			$data = Json::decode($data);
-
+			
 			$report->data = $data;
 			$report->lastGenerated = new \DateTime();
 			$report->isGenerating = false;
-
+			
 			Reports::$plugin->service->saveReport($report);
 
 			$this->setProgress( $queue, 1 );
+			
 
 		} catch (\Exception $e) {
 			Craft::error($e->getMessage(), __METHOD__);

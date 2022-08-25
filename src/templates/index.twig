@@ -45,7 +45,7 @@
 				<tr data-id="{{ report.id }}" data-name="{{ report.name|t }}" data-generating="{{ report.isGenerating }}">
 					<th scope="row" data-title="{{ 'Name'|t }}">
 						{% if currentUser.can('reports-editReports') %}
-						<a href="{{ url('reports/edit/' ~ report.id) }}">{{ report.name|t }}</a>
+						<a href="{{ url('reports/edit/' ~ report.id) }}" class="edit {{ report.isGenerating ? 'disabled' }}">{{ report.name|t }}</a>
 						{% else %}
 						{{ report.name|t }}
 						{% endif %}
@@ -84,6 +84,12 @@
 
 {% endblock %}
 
+{% css %}
+	#reports a.disabled {
+		pointer-events: none;
+	}
+{% endcss %}
+
 {% js %}
 	new Craft.AdminTable({
 		tableSelector: '#reports',
@@ -98,6 +104,7 @@
 			e.preventDefault();
 			var $this = $(this);
 
+			$tr.find('a.edit').addClass('disabled');
 			$tr.find('a.view').addClass('hidden');
 			$tr.find('a.run').addClass('disabled loading');
 			//$tr.find('[data-status]').text('GENERATING...');
@@ -129,6 +136,7 @@
 			} else {
 				Craft.cp.displayNotice($name+' report is ready');
 				var $tr = $('#reports tr[data-id="'+$id+'"]')
+				$tr.find('a.edit').removeClass('disabled');
 				$tr.find('a.view').removeClass('hidden');
 				$tr.find('a.run').removeClass('disabled loading');
 				$tr.find('[data-status]').text(response.lastGenerated);

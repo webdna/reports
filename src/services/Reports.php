@@ -79,7 +79,9 @@ class Reports extends Component
 		$record->name = $model->name;
 		$record->type = $model->type;
 		$record->options = $model->options;
-		$record->data = $model->data;
+		if ($model->data) {
+			$record->data = $model->data;
+		}
 		$record->lastGenerated = $model->lastGenerated;
 		$record->isGenerating = $model->isGenerating;
 		

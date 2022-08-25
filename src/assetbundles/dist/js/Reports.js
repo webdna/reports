@@ -31,16 +31,21 @@ Reports.Options.DateRange = Garnish.Base.extend({
 				this.dateRangeInput.val(value);
 				this.startDateInput.val('');
 				this.endDateInput.val('');
-				if (value == 'custom') {
+				
+				if (value == 'Custom') {
 					if (startDate) {
-						this.startDateInput.val(startDate.toISOString());
+						this.startDateInput.val(this.formatDate(startDate));
 					}
 					if (endDate) {
-						this.endDateInput.val(endDate.toISOString());
+						this.endDateInput.val(this.formatDate(endDate));
 					}
 				}
 			}.bind(this),
 		}).appendTo(this.$container);
+	},
+	
+	formatDate: function(date) {
+		return date.getFullYear()+'-'+((date.getMonth()+1).toString().padStart(2, '0'))+'-'+(date.getDate().toString().padStart(2, '0'));
 	}
 	
 }, {
@@ -86,6 +91,7 @@ Reports.createDateRangePicker = function (config) {
 	  .data('handle', 'All');
 
 	$('<li/>').append($allOption).appendTo($ul);
+	
 
 	var option;
 	var selectedOption;
@@ -161,6 +167,7 @@ Reports.createDateRangePicker = function (config) {
 		);
 	  },
 	});
+	
 
 	$dateInputs.on('change', function () {
 	  // Do the start & end dates match one of our options?
@@ -168,6 +175,7 @@ Reports.createDateRangePicker = function (config) {
 	  let endDate = $endDate.datepicker('getDate');
 	  let startTime = startDate ? startDate.getTime() : null;
 	  let endTime = endDate ? endDate.getTime() : null;
+
 
 	  let $options = $ul.find('a');
 	  let $option;
