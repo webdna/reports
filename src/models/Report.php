@@ -28,13 +28,13 @@ class Report extends Model
 	/**
 	 * @var string
 	 */
-	public $id;
-	public $name;
-	public $type;
-	public $options;
-	public $data;
-	public $lastGenerated;
-	public $isGenerating;
+	public ?int $id = null;
+	public ?string $name = null;
+	public string $type;
+	public mixed $options = null;
+	public mixed $data = null;
+	public ?\DateTime $lastGenerated = null;
+	public bool $isGenerating = false;
 
 	// Public Methods
 	// =========================================================================

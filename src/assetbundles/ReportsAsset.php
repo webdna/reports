@@ -33,6 +33,8 @@ class ReportsAsset extends AssetBundle
 		$this->js = [
 			'js/Reports.js',
 			'js/Export.js',
+			'https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js',
+			'js/DataTable.js',
 		];
 
 		$this->css = [

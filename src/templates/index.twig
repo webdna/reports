@@ -30,6 +30,7 @@
 {% block content %}
 
 	{% if reports %}
+	<div class="tablepane">
 		<table id="reports" class="data fullwidth collapsible">
 			<thead>
 			<th scope="col">{{ "Name"|t }}</th>
@@ -64,7 +65,10 @@
 					</td>
 					<td class="thin">
 					{% if currentUser.can('reports-generateReports') %}
-						<a class="run submit btn icon add {{ report.isGenerating ? 'disabled loading' }}" role="button" title="{{ 'Run'|t }}">Generate</a>
+						<a class="run submit btn icon add {{ report.isGenerating ? 'loading' }}" role="button" title="{{ 'Run'|t }}">
+							<div class="label">Generate</div>
+							<div class="spinner spinner-absolute"></div>
+						</a>
 					{% endif %}
 					</td>
 					<td class="thin">
@@ -76,6 +80,7 @@
 			{% endfor %}
 			</tbody>
 		</table>
+	</div>
   {% endif %}
 
   <div id="noReports">
@@ -103,10 +108,12 @@
 		$tr.find('a.run').on('click', function(e){
 			e.preventDefault();
 			var $this = $(this);
+			
+			if (!$tr.find('a.run').hasClass('loading')) {
 
 			$tr.find('a.edit').addClass('disabled');
 			$tr.find('a.view').addClass('hidden');
-			$tr.find('a.run').addClass('disabled loading');
+			$tr.find('a.run').addClass('loading');
 			//$tr.find('[data-status]').text('GENERATING...');
 
 			Craft.postActionRequest('reports/reports/run', {id:$tr.attr('data-id')}, (response, textStatus) => {
@@ -119,6 +126,7 @@
 					$tr.find('[data-status]').text();
 				}
 			});
+			}
 		});
 
 		if ($tr.attr('data-generating') == '1') {
@@ -138,7 +146,7 @@
 				var $tr = $('#reports tr[data-id="'+$id+'"]')
 				$tr.find('a.edit').removeClass('disabled');
 				$tr.find('a.view').removeClass('hidden');
-				$tr.find('a.run').removeClass('disabled loading');
+				$tr.find('a.run').removeClass('loading');
 				$tr.find('[data-status]').text(response.lastGenerated);
 			}
 		});

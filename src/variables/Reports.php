@@ -20,7 +20,7 @@ use DateInterval;
 
 class Reports
 {
-    public function configure($query, $attribute, $options)
+    public function configure(mixed $query, string $attribute, array $options): mixed
     {
         $criteria = [];
         $startDate = null;
@@ -100,7 +100,7 @@ class Reports
         return $query;
     }
     
-    public function getDateRange($attribute, $options)
+    public function getDateRange(string $attribute, array $options): mixed
     {
         $startDate = null;
         $endDate = null;
@@ -177,7 +177,7 @@ class Reports
         return null;
     }
     
-    public function update($id, $data = null)
+    public function update(int $id, ?string $data = null): void
     {
         if ($data == null) {
             Craft::$app->db->createCommand('UPDATE `reports` SET `data` = "" WHERE id = '.$id)->execute();

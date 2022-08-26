@@ -30,11 +30,11 @@ class Reports extends Plugin
 {
 	public static $plugin;
 	
-	public $schemaVersion = '1.0.0';
+	public string $schemaVersion = '1.0.0';
 	
-	public $hasCpSettings = true;
+	public bool $hasCpSettings = true;
 	
-	public $hasCpSection = true;
+	public bool $hasCpSection = true;
 	
 	
 	public function init(): void
@@ -102,7 +102,7 @@ class Reports extends Plugin
 	/**
 	 * @inheritdoc
 	 */
-	protected function createSettingsModel()
+	protected function createSettingsModel(): Settings
 	{
 		return new Settings();
 	}
