@@ -66,22 +66,33 @@ class Reports extends Plugin
 			UserPermissions::class, 
 			UserPermissions::EVENT_REGISTER_PERMISSIONS, 
 			function (RegisterUserPermissionsEvent $event) {
-				$event->permissions[Craft::t('reports', 'Reports')] = [
-					'reports-viewReports' => [
-						'label' => Craft::t('reports', 'View Reports'),
-					],
-					'reports-editReports' => [
-						'label' => Craft::t('reports', 'Edit Reports'),
-					],
-					'reports-generateReports' => [
-						'label' => Craft::t('reports', 'Generate Reports'),
-					],
-					'reports-exportReports' => [
-						'label' => Craft::t('reports', 'Export Reports'),
-					],
+				$event->permissions[] = [
+					'heading' => Craft::t('reports', 'Reports'),
+					'permissions' => [
+						'reports-viewReports' => [
+							'label' => Craft::t('reports', 'View Reports'),
+						],
+						'reports-editReports' => [
+							'label' => Craft::t('reports', 'Edit Reports'),
+						],
+						'reports-generateReports' => [
+							'label' => Craft::t('reports', 'Generate Reports'),
+						],
+						'reports-exportReports' => [
+							'label' => Craft::t('reports', 'Export Reports'),
+						],
+					]
 				];
 			}
 		);
+		
+		$event->permissions[] = [
+			'heading' => 'OTIS',
+			'permissions' => [
+				"otis_runExports" => ["label" => "Run Exports"],
+				"otis_deleteDispatches" => ["label" => "Delete Dispatches"]
+			]
+		];
 		
 		Event::on(
 			CraftVariable::class, 
