@@ -86,14 +86,6 @@ class Reports extends Plugin
 			}
 		);
 		
-		$event->permissions[] = [
-			'heading' => 'OTIS',
-			'permissions' => [
-				"otis_runExports" => ["label" => "Run Exports"],
-				"otis_deleteDispatches" => ["label" => "Delete Dispatches"]
-			]
-		];
-		
 		Event::on(
 			CraftVariable::class, 
 			CraftVariable::EVENT_INIT, 
