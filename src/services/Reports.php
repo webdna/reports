@@ -112,7 +112,7 @@ class Reports extends Component
 			'isGenerating' => true,
 		], ['id' => $id]);
 
-		Craft::$app->queue->ttr(1200)->push(new GenerateReport([
+		Craft::$app->queue->ttr(1800)->push(new GenerateReport([
 			'reportId' => $id
 		]));
 		
