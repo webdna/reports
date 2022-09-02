@@ -73,7 +73,16 @@ class ReportsController extends Controller
 			throw new NotFoundHttpException('Report not found');
 		}
 	
-		$report->data = Json::decode($report->data);
+		$report->data = Json::decodeIfJson($report->data);
+
+		if (gettype($report->data) === "string") {
+			// decode failed
+			return $this->asFailure(
+				Craft::t('app', 'There was a problem rendering this report, try running the report again.'),
+				[],
+				[]
+			);
+		}
 	
 		Craft::$app->getView()->registerAssetBundle(ReportsAsset::class);
 			
