@@ -7,7 +7,7 @@
  * @link      https://webdna.co.uk
  * @copyright Copyright (c) 2022 WebDNA
  */
- 
+
 namespace webdna\reports;
 
 use webdna\reports\models\Settings;
@@ -29,30 +29,30 @@ use yii\base\Event;
 class Reports extends Plugin
 {
 	public static $plugin;
-	
+
 	public $schemaVersion = '1.0.0';
-	
+
 	public $hasCpSettings = true;
-	
+
 	public $hasCpSection = true;
-	
-	
+
+
 	public function init(): void
 	{
 		parent::init();
 		self::$plugin = $this;
-			
+
 		$this->setComponents([
 			'service' => ReportsService::class,
 		]);
-		
+
 		if (Craft::$app instanceof ConsoleApplication) {
 			$this->controllerNamespace = 'webdna\reports\console\controllers';
 		}
-		
+
 		Event::on(
-			UrlManager::class, 
-			UrlManager::EVENT_REGISTER_CP_URL_RULES, 
+			UrlManager::class,
+			UrlManager::EVENT_REGISTER_CP_URL_RULES,
 			function (RegisterUrlRulesEvent $event) {
 				$event->rules['reports'] = 'reports/reports/index';
 				$event->rules['reports/view/<id:\d+>'] = 'reports/reports/view';
@@ -61,10 +61,10 @@ class Reports extends Plugin
 				$event->rules['reports/<type:[-\w]+>/<id:\d+>'] = 'reports/reports/edit';
 			}
 		);
-		
+
 		Event::on(
-			UserPermissions::class, 
-			UserPermissions::EVENT_REGISTER_PERMISSIONS, 
+			UserPermissions::class,
+			UserPermissions::EVENT_REGISTER_PERMISSIONS,
 			function (RegisterUserPermissionsEvent $event) {
 				$event->permissions[Craft::t('reports', 'Reports')] = [
 					'reports-viewReports' => [
@@ -82,23 +82,23 @@ class Reports extends Plugin
 				];
 			}
 		);
-		
+
 		Event::on(
-			CraftVariable::class, 
-			CraftVariable::EVENT_INIT, 
+			CraftVariable::class,
+			CraftVariable::EVENT_INIT,
 			function (Event $event) {
 				/** @var CraftVariable $variable */
 				$variable = $event->sender;
 				$variable->set('reports', ReportsVariable::class);
 			}
 		);
-		
+
 		Craft::info(Craft::t('reports', '{name} plugin loaded', ['name' => $this->name]), __METHOD__);
 	}
-	
+
 	// Protected Methods
 	// =========================================================================
-	
+
 	/**
 	 * @inheritdoc
 	 */
@@ -106,7 +106,7 @@ class Reports extends Plugin
 	{
 		return new Settings();
 	}
-	
+
 	/**
 	 * @inheritdoc
 	 */
