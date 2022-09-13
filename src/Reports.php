@@ -46,7 +46,7 @@ class Reports extends Plugin
 			'service' => ReportsService::class,
 		]);
 		
-		if (Craft::$app instanceof ConsoleApplication) {
+		if (Craft::$app->getRequest()->getIsConsoleRequest()) {
 			$this->controllerNamespace = 'webdna\reports\console\controllers';
 		}
 		

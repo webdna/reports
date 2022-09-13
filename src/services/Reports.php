@@ -112,11 +112,16 @@ class Reports extends Component
 			'isGenerating' => true,
 		], ['id' => $id]);
 
-		Craft::$app->queue->ttr(1800)->push(new GenerateReport([
+		/*Craft::$app->queue->ttr(1800)->push(new GenerateReport([
 			'reportId' => $id
-		]));
+		]));*/
 		
 		//Craft::$app->queue->run();
+			
+		Plugin::$plugin->controllerNamespace = 'webdna\reports\console\controllers';
+		$controller = Craft::$app->controller;
+		
+		$command = $controller->run("reports/generate-report", ["report-id"=>$id]);
 	}
 	
 	public function getTypes(): ?array
