@@ -4,9 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 2.1.2 - 2022-09-13
+## 2.1.3 - 2022-09-13
 ### Added
 - Default view column heading format
+- Default date range option
 
 ## 2.1.1 - 2022-09-13
 ### Added
