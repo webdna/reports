@@ -168,6 +168,10 @@ class Reports extends Component
 		$oldMode = $view->getTemplateMode();
 		$view->setTemplateMode(View::TEMPLATE_MODE_SITE);
 		
+		if (!$view->resolveTemplate($path."/".$template)) {
+			$view->setTemplateMode($oldMode);
+			return null;
+		}
 			
 		$html = $view->renderTemplate($path."/".$template, [
 			'options' => $report->parsedOptions,
