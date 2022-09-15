@@ -62,7 +62,7 @@ class Install extends Migration
 					'name' => $this->string(255)->notNull(),
 					'type' => $this->string(255)->notNull(),
 					'options' => $this->text(),
-					'data' => $this->mediumText(),
+					'data' => $this->longText(),
 					'isGenerating' => $this->boolean(),
 					'lastGenerated' => $this->dateTime(),
 					'dateUpdated' => $this->dateTime()->notNull(),
