@@ -17,7 +17,62 @@
 {% endblock %}
 
 {% block content %}
-	{{ raw(data) }}
+	{% if data ?? null %}
+    {{ raw(data) }}
+  {% else %}
+  
+  {% set perPage = 100 %}
+  {% set resultsDataProvider = create({'class': 'yii\\data\\ArrayDataProvider', 'allModels':report.data, 'pagination': {'pageSize': perPage}}) %}
+  {% set results = resultsDataProvider.getModels() %}
+  {% set currentPage = resultsDataProvider.getPagination().getPage() + 1 %}
+  {% set pageCount = resultsDataProvider.getPagination().getPageCount() %}
+  {% if currentPage > 1 %}
+      {% set prevPage = currentPage - 1 %}
+  {% endif %}
+  {% if currentPage < pageCount %}
+      {% set nextPage = currentPage + 1 %}
+  {% endif %}
+  
+    
+    {% if report.data|length %}
+    <div style="overflow-x:scroll; border-radius:5px;">
+    <table class="data fullwidth" data-sortable>
+      <thead>
+        <tr>
+        {% for key, value in report.data[0] %}
+          <th class="orderable" style="padding:0 12px;">{{ key|capitalize }}</th>
+        {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+      {% for result in results %}
+        <tr>
+        {% for value in result %}
+          <td style="white-space:nowrap;">{{ value }}</td>
+        {% endfor %}
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+    
+    <div id="footer" class="">
+        <div id="count-container" class="light flex-grow">
+            <div class="flex pagination">
+                <nav class="flex" aria-label="entry pagination">
+                    {% if prevPage is defined %}<a href="{{ url(craft.app.request.url, {'page': prevPage}) }}" class="page-link prev-page" title="Previous Page"></a>{% else %}<a class="page-link prev-page disabled" disabled="disabled" title="Previous Page"></a>{% endif %}
+                    {% if nextPage is defined %}<a href="{{ url(craft.app.request.url, {'page': nextPage}) }}" class="page-link next-page" title="Next Page"></a>{% else %}<a class="page-link next-page disabled" disabled="disabled" title="Next Page"></a>{% endif %}
+                </nav>
+                <div class="page-info">{{ ((currentPage-1) * perPage)+1 }}-{{ (nextPage ?? false) ? currentPage * perPage : report.data|length }} of {{report.data|length}} results</div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    No results
+    {% endif %}
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sortable/0.8.0/js/sortable.min.js" integrity="sha512-DEcSaL0BWApJ//v7ZfqAI04nvK+NQcUVwrrx/l1x7OJgU0Cwbq7e459NBMzLPrm8eLPzAwBtiJJS4AvLZDZ8xA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  {% endif %}
 {% endblock %}
 
 

@@ -9,6 +9,6 @@
 	new Reports.Options.DateRange("#dateRange", {
 		startDate: {% if (options.dateRange.startDate ?? null) %} (new Date('{{ options.dateRange.startDate }}')){% else %}null{% endif %},
 		endDate: {% if (options.dateRange.startDate ?? null) %} (new Date('{{ options.dateRange.endDate }}')){% else %}null{% endif %},
-		selected: '{{ options.dateRange.type ?? null }}',
+		selected: '{{ options.dateRange.type ?? 'All' }}',
 	});
 {% endjs %}
