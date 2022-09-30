@@ -53,7 +53,7 @@ class ReportsController extends Controller
 		$data = StringHelper::replaceAll($data, ["\n","\t","\r"], ['','','']);
 		$data = Json::decode($data);
 	
-		$report->data = $data;
+		$report->data = Json::encode($data);
 		$report->lastGenerated = new DateTime();
 		$report->isGenerating = false;
 	

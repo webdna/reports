@@ -4,9 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 2.1.5 - 2022-09-30
+## 2.1.6 - 2022-09-30
 ### Added
 - yesterday date range option
+### Fixed
+- overwrite data with empty data
 
 ## 2.1.4 - 2022-09-15
 ### Added
