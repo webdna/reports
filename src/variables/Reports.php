@@ -46,6 +46,11 @@ class Reports
                 $endDate = (clone $startDate)->add(new DateInterval('P1D'));
                 break;
                 
+            case 'Yesterday':
+                $startDate = (clone $today)->sub(new DateInterval('P1D'));
+                $endDate = $today;
+                break;
+                
             case 'This Week':
                 $startDate = DateTimeHelper::toDateTime(strtotime('last monday', strtotime('tomorrow')));
                 $endDate = (clone $startDate)->add(new DateInterval('P1W'));
@@ -123,6 +128,11 @@ class Reports
             case 'Today':
                 $startDate = $today;
                 $endDate = (clone $startDate)->add(new DateInterval('P1D'));
+                break;
+                
+            case 'Yesterday':
+                $startDate = (clone $today)->sub(new DateInterval('P1D'));
+                $endDate = $today;
                 break;
                 
             case 'This Week':

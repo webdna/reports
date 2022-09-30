@@ -55,6 +55,7 @@ Reports.Options.DateRange = Garnish.Base.extend({
 		endDate: null,
 		options: [
 			'Today',
+			'Yesterday',
 			'This Week',
 			'This Month',
 			'This Year',
