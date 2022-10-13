@@ -214,6 +214,10 @@ class ReportsController extends Controller
 			case Response::FORMAT_JSON:
 				$this->response->formatters[Response::FORMAT_JSON]['prettyPrint'] = true;
 				break;
+			case Response::FORMAT_XML:
+				Craft::$app->language = 'en-US';
+				$this->response->formatters[Response::FORMAT_XML]['rootTag'] = StringHelper::toCamelCase($report->name);
+				break;
 		}
 	
 		$this->response->setDownloadHeaders($filename);

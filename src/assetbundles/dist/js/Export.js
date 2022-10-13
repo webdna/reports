@@ -18,6 +18,7 @@ if (typeof Reports.Export === typeof undefined) {
 	 
 	 _showExportHud: function() {
 		 this.$exportBtn.addClass('active');
+		 this.$exportBtn.attr('aria-expanded', 'true');
 	 
 		 var $form = $('<form/>', {
 			 'class': 'export-form'
@@ -26,25 +27,30 @@ if (typeof Reports.Export === typeof undefined) {
 		 var $formatField = Craft.ui.createSelectField({
 			 label: Craft.t('app', 'Format'),
 			 options: [
-				 {label: 'CSV', value: 'csv'}, {label: 'JSON', value: 'json'},
+				 {label: 'CSV', value: 'csv'}, 
+				 {label: 'JSON', value: 'json'},
+				 {label: 'XML', value: 'xml'},
 			 ],
 			 'class': 'fullwidth',
 		 }).appendTo($form);
 	 
-		 $('<button/>', {
-			 type: 'submit',
-			 'class': 'btn submit fullwidth',
-			 text: Craft.t('app', 'Export')
-		 }).appendTo($form)
+		 const $submitBtn = Craft.ui
+		 	.createSubmitButton({
+		   	class: 'fullwidth',
+		   	label: Craft.t('app', 'Export'),
+		   	spinner: true,
+		 	})
+		 	.appendTo($form);
 	 
-		 var $spinner = $('<div/>', {
-			 'class': 'spinner hidden'
-		 }).appendTo($form);
+		 // var $spinner = $('<div/>', {
+			//  'class': 'spinner hidden'
+		 // }).appendTo($form);
 	 
 		 var hud = new Garnish.HUD(this.$exportBtn, $form);
 	 
 		 hud.on('hide', () => {
 			 this.$exportBtn.removeClass('active');
+			 this.$exportBtn.attr('aria-expanded', 'false');
 		 });
 	 
 		 var submitting = false;
@@ -56,7 +62,7 @@ if (typeof Reports.Export === typeof undefined) {
 			 }
 	 
 			 submitting = true;
-			 $spinner.removeClass('hidden');
+			 $submitBtn.addClass('loading');
 	 
 			 var params = {
 				 id: this.$exportBtn.attr('data-id'),
@@ -70,15 +76,15 @@ if (typeof Reports.Export === typeof undefined) {
 			 }
 	 
 			 Craft.downloadFromUrl('POST', Craft.getActionUrl('reports/reports/export'), params)
-				 .then(function() {
+				 .catch(() => {
+					 if (!this._ignoreFailedRequest) {
+					   Craft.cp.displayError(Craft.t('app', 'A server error occurred.'));
+					 }
+				   })
+				   .finally(() => {
 					 submitting = false;
-					 $spinner.addClass('hidden');
-				 })
-				 .catch(function() {
-					 submitting = false;
-					 $spinner.addClass('hidden');
-					 Craft.cp.displayError(Craft.t('app', 'A server error occurred.'));
-				 });
+					 $submitBtn.removeClass('loading');
+				   });
 		 });
 	 },
  }, {
