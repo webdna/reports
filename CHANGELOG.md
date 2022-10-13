@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.2.0 - 2022-10-13
+### Added
+- xml export type
+
 ## 2.1.6 - 2022-09-30
 ### Added
 - yesterday date range option

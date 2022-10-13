@@ -2,7 +2,7 @@
 	"name": "webdna/reports",
 	"description": "Reports",
 	"type": "craft-plugin",
-	"version": "2.1.6",
+	"version": "2.2.0",
 	"keywords": [
 		"craft",
 		"cms",
@@ -11,7 +11,7 @@
 		"reports"
 	],
 	"support": {
-		"docs": "https://github.com/webdna/reports/blob/master/README.md",
+		"docs": "https://github.com/webdna/reports",
 		"issues": "https://github.com/webdna/reports/issues"
 	},
 	"license": "proprietary",
@@ -34,8 +34,6 @@
 		"handle": "reports",
 		"developer": "WebDNA",
 		"developerUrl": "https://webdna.co.uk",
-		"documentationUrl": "https://github.com/webdna/reports/blob/master/README.md",
-		"changelogUrl": "https://raw.githubusercontent.com/webdna/reports/master/CHANGELOG.md",
 		"class": "webdna\\reports\\Reports"
 	}
 }
