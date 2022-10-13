@@ -1,15 +1,15 @@
 
-if (typeof Reports.Export === typeof undefined) {
-	 Reports.Export = {};
+if (typeof DNAReports.Export === typeof undefined) {
+	 DNAReports.Export = {};
  }
  
- Reports.Export = Garnish.Base.extend({
+ DNAReports.Export = Garnish.Base.extend({
 	 $container: null,
 	 $exportBtn: null,
 	 
 	 init: function ($container, settings) {
 		this.$container = $container;
-		this.setSettings(settings, Reports.Export.defaults);
+		this.setSettings(settings, DNAReports.Export.defaults);
  
 		this.$exportBtn = this.$container.find('#export-btn'); 
 		
@@ -69,7 +69,7 @@ if (typeof Reports.Export === typeof undefined) {
 				 params[Craft.csrfTokenName] = Craft.csrfTokenValue;
 			 }
 	 
-			 Craft.downloadFromUrl('POST', Craft.getActionUrl('reports/reports/export'), params)
+			 Craft.downloadFromUrl('POST', Craft.getActionUrl('dnareports/reports/export'), params)
 				 .then(function() {
 					 submitting = false;
 					 $spinner.addClass('hidden');

@@ -4,18 +4,19 @@ namespace webdna\reports\migrations;
 
 use craft\db\Migration;
 use craft\db\Table;
+use craft\helpers\MigrationHelper;
 
 /**
- * m220915_000001_datatype migration.
+ * m221013_000001_renametable migration.
  */
-class m220915_000001_datatype extends Migration
+class m221013_000001_renametable extends Migration
 {
 	/**
 	 * @inheritdoc
 	 */
 	public function safeUp(): bool
 	{
-		$this->alterColumn('{{%dnareports}}', 'data', $this->longText());
+		MigrationHelper::renameTable('{{%reports}}', '{{%dnareports}}');
 		return true;
 	}
 
@@ -24,7 +25,7 @@ class m220915_000001_datatype extends Migration
 	 */
 	public function safeDown(): bool
 	{
-		echo "m220915_000001_datatype cannot be reverted.\n";
+		echo "m221013_000001_renametable cannot be reverted.\n";
 		return false;
 	}
 }

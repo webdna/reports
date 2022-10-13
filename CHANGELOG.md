@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.4.0 - 2022-10-13
+### Changed
+- plugin name
+
 ## 1.3.0 - 2022-09-15
 ### Added
 - Default view with ability to override per report type

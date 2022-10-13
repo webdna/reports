@@ -110,14 +110,19 @@ class Reports extends Component
 	public function runReportById(int $id): void
 	{
 
-		Db::Update('{{%reports}}', [
+		Db::Update('{{%dnareports}}', [
 			'isGenerating' => true,
 		], ['id' => $id]);
 
 
-		$path = Craft::getAlias("@root") . "/craft";
-		$console = new ConsoleRunner(['file' => $path]);
-		$console->run('reports/reports/generate-report --reportId=' . $id);
+		//$path = Craft::getAlias("@root") . "/craft";
+		//$console = new ConsoleRunner(['file' => $path]);
+		//$console->run('dnareports/reports/generate-report --reportId=' . $id);
+		
+		Plugin::$plugin->controllerNamespace = 'webdna\reports\console\controllers';
+		$controller = Craft::$app->controller;
+		
+		$command = $controller->run("reports/generate-report", ["report-id"=>$id]);
 
 		// Craft::$app->queue->ttr(1800)->push(new GenerateReport([
 		// 	'reportId' => $id
@@ -154,7 +159,7 @@ class Reports extends Component
 		$view = Craft::$app->getView();
 		$view->registerAssetBundle(ReportsAsset::class);
 
-		$options = $view->renderTemplate('reports/options', [
+		$options = $view->renderTemplate('dnareports/options', [
 			'options' => $report->parsedOptions,
 			'report' => $report,
 		]);
@@ -228,6 +233,6 @@ class Reports extends Component
 				'isGenerating',
 				'lastGenerated',
 			])
-			->from(['{{%reports}}']);
+			->from(['{{%dnareports}}']);
 	}
 }

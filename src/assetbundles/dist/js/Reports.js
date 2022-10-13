@@ -1,11 +1,11 @@
 
-if (typeof Reports === typeof undefined) {
-	Reports = {
+if (typeof DNAReports === typeof undefined) {
+	DNAReports = {
 		Options: {}
 	};
 }
 
-Reports.Options.DateRange = Garnish.Base.extend({
+DNAReports.Options.DateRange = Garnish.Base.extend({
 	
 	startDate: null,
 	endDate: null,
@@ -13,13 +13,13 @@ Reports.Options.DateRange = Garnish.Base.extend({
 	
 	init: function($container, settings) {
 		this.$container = $container;
-		this.setSettings(settings, Reports.Options.DateRange.defaults);
+		this.setSettings(settings, DNAReports.Options.DateRange.defaults);
 		
 		this.startDateInput = $('<input type="hidden" name="options[dateRange][startDate]" value="">').appendTo(this.$container);
 		this.endDateInput = $('<input type="hidden" name="options[dateRange][endDate]" value="">').appendTo(this.$container);
 		this.dateRangeInput = $('<input type="hidden" name="options[dateRange][type]" value="">').appendTo(this.$container);
 		
-		Reports.createDateRangePicker({
+		DNAReports.createDateRangePicker({
 			selected: this.settings.selected,
 			startDate: this.settings.startDate,
 			endDate: this.settings.endDate,
@@ -67,7 +67,7 @@ Reports.Options.DateRange = Garnish.Base.extend({
 	}
 });
 
-Reports.createDateRangePicker = function (config) {
+DNAReports.createDateRangePicker = function (config) {
 	var now = new Date();
 	var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 	config = $.extend(

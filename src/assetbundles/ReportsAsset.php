@@ -33,6 +33,7 @@ class ReportsAsset extends AssetBundle
 		$this->js = [
 			'js/Reports.js',
 			'js/Export.js',
+			'js/DataTable.js',
 		];
 
 		$this->css = [

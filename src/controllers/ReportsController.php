@@ -39,12 +39,12 @@ class ReportsController extends Controller
 			'reports' => Reports::$plugin->service->getAllReports(),
 		];
 	
-		return $this->renderTemplate('reports/index', $variables);
+		return $this->renderTemplate('dnareports/index', $variables);
 	}
 	
 	public function actionEdit($type, $id=null): Response
 	{
-		$this->requirePermission('reports-editReports');
+		$this->requirePermission('dnareports-editReports');
 		
 		if ($id) {
 			$report = Reports::$plugin->service->getReportById($id);
@@ -57,7 +57,7 @@ class ReportsController extends Controller
 			$report->type = $type;
 		}
 	
-		return $this->renderTemplate('reports/edit', [
+		return $this->renderTemplate('dnareports/edit', [
 			'report' => $report,
 			'options' => Reports::$plugin->service->getOptions($report),
 		]);
@@ -65,7 +65,7 @@ class ReportsController extends Controller
 	
 	public function actionView($id): Response
 	{
-		$this->requirePermission('reports-viewReports');
+		$this->requirePermission('dnareports-viewReports');
 		
 		$report = Reports::$plugin->service->getReportById($id);
 	
@@ -78,14 +78,14 @@ class ReportsController extends Controller
 		if (gettype($report->data) === 'string') {
 			// decode unsuccessful
 			Craft::$app->getSession()->setError(Craft::t('app', 'There was a problem rendering this report, try running the report again.'));
-			return $this->redirect("reports");
+			return $this->redirect("dnareports");
 		}
 	
 		Craft::$app->getView()->registerAssetBundle(ReportsAsset::class);
 			
 		$data = Reports::$plugin->service->renderTemplate($report, 'view');
 	
-		return $this->renderTemplate('reports/view', [
+		return $this->renderTemplate('dnareports/view', [
 			'report' => $report,
 			'data' => $data,
 		]);
@@ -93,7 +93,7 @@ class ReportsController extends Controller
 	
 	public function actionSave(): void
 	{
-		$this->requirePermission('reports-editReports');
+		$this->requirePermission('dnareports-editReports');
 		
 		$this->requirePostRequest();
 	
@@ -133,7 +133,7 @@ class ReportsController extends Controller
 		//$report->email = StringHelper::stripWhitespace($request->getParam('email', $user->email));
 	
 		if (Reports::$plugin->service->saveReport($report)) {
-			$this->redirect("reports");
+			$this->redirect("dnareports");
 		}
 		
 		Craft::$app->getSession()->setError(Craft::t('app', 'Couldn’t save report.'));
@@ -147,7 +147,7 @@ class ReportsController extends Controller
 	
 	public function actionRun(): Response
 	{
-		$this->requirePermission('reports-generateReports');
+		$this->requirePermission('dnareports-generateReports');
 		
 		$this->requirePostRequest();
 		$this->requireAcceptsJson();
@@ -161,7 +161,7 @@ class ReportsController extends Controller
 	
 	public function actionDelete(): Response
 	{
-		$this->requirePermission('reports-editReports');
+		$this->requirePermission('dnareports-editReports');
 		
 		$this->requirePostRequest();
 		$this->requireAcceptsJson();
@@ -190,7 +190,7 @@ class ReportsController extends Controller
 	
 	public function actionExport(): Response
 	{
-		$this->requirePermission('reports-exportReports');
+		$this->requirePermission('dnareports-exportReports');
 		
 		$this->requirePostRequest();
 	

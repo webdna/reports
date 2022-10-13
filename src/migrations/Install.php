@@ -53,10 +53,10 @@ class Install extends Migration
 	
 	protected function createTables(): void
 	{
-		$tableSchema = Craft::$app->db->schema->getTableSchema('{{%reports}}');
+		$tableSchema = Craft::$app->db->schema->getTableSchema('{{%dnareports}}');
 		if ($tableSchema === null) {
 			$this->createTable(
-				'{{%reports}}',
+				'{{%dnareports}}',
 				[
 					'id' => $this->primaryKey(),
 					'name' => $this->string(255)->notNull(),
@@ -87,7 +87,7 @@ class Install extends Migration
 	
 	protected function dropTables(): void
 	{
-		$this->dropTableIfExists("{{%reports}}");
+		$this->dropTableIfExists("{{%dnareports}}");
 	}
 	
 	public function dropForeignKeys(): void
