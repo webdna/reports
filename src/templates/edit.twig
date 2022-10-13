@@ -2,17 +2,17 @@
 {% import "_includes/forms" as forms %}
 
 {% if report.id > 0 and not currentUser.can('dnareports-viewReports') %}
-	{% redirect 'reports' %}
+	{% redirect 'dnareports' %}
 {% endif %}
 {% if report.id == null and not currentUser.can('dnareports-editReports') %}
-	{% redirect 'reports' %}
+	{% redirect 'dnareports' %}
 {% endif %}
 
 
 {% set title = report.id ? "Edit report" : "Create " ~ report.type|replace('_', ' ')|title ~ " report" %}
 
 {% set crumbs = [
-	{ label: "DNA Reports"|t, url: url('dnareports') }
+	{ label: "Reports"|t, url: url('dnareports') }
 ] %}
 
 {% set fullPageForm = true %}

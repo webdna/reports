@@ -23,6 +23,8 @@ use craft\events\RegisterUserPermissionsEvent;
 use craft\web\twig\variables\CraftVariable;
 use craft\services\UserPermissions;
 use craft\web\UrlManager;
+use craft\events\RegisterCpNavItemsEvent;
+use craft\web\twig\variables\Cp;
 
 use yii\base\Event;
 
@@ -93,6 +95,18 @@ class Reports extends Plugin
 				/** @var CraftVariable $variable */
 				$variable = $event->sender;
 				$variable->set('dnareports', ReportsVariable::class);
+			}
+		);
+		
+		Event::on(
+			Cp::class,
+			Cp::EVENT_REGISTER_CP_NAV_ITEMS,
+			function(RegisterCpNavItemsEvent $event) {
+				foreach($event->navItems as $key => $value) {
+					if ($value['url'] == 'dnareports') {
+						$event->navItems[$key]['label'] = 'Reports';
+					}
+				}
 			}
 		);
 		
