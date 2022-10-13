@@ -1,6 +1,6 @@
 {% apply spaceless %}
 
-{% set users = craft.reports.configure(craft.users, 'dateUpdated', options) %}
+{% set users = craft.dnareports.configure(craft.users, 'dateUpdated', options) %}
 
 {% if options.userGroupId %}
 	{% set users = users.userGroupId(options.userGroupId) %}

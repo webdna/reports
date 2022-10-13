@@ -65,7 +65,7 @@ class Reports extends Component
 			$record = ReportRecord::findOne($model->id);
 	
 			if (!$record->id) {
-				throw new Exception(Craft::t('reports', 'No report exists with the ID "{id}"', ['id' => $model->id]));
+				throw new Exception(Craft::t('dnareports', 'No report exists with the ID "{id}"', ['id' => $model->id]));
 			}
 		} else {
 			$record = new ReportRecord();
@@ -108,7 +108,7 @@ class Reports extends Component
 	public function runReportById(int $id): void
 	{
 		
-		Db::Update('{{%reports}}', [
+		Db::Update('{{%dnareports}}', [
 			'isGenerating' => true,
 		], ['id' => $id]);
 
@@ -152,7 +152,7 @@ class Reports extends Component
 		$view = Craft::$app->getView();
 		$view->registerAssetBundle(ReportsAsset::class);
 			
-		$options = $view->renderTemplate('reports/options', [
+		$options = $view->renderTemplate('dnareports/options', [
 			'options' => $report->parsedOptions,
 			'report' => $report,
 		]);
@@ -226,6 +226,6 @@ class Reports extends Component
 				'isGenerating',
 				'lastGenerated',
 			])
-			->from(['{{%reports}}']);
+			->from(['{{%dnareports}}']);
 	}
 }

@@ -23,6 +23,6 @@ class Report extends ActiveRecord
 	 */
 	public static function tableName(): string
 	{
-		return '{{%reports}}';
+		return '{{%dnareports}}';
 	}
 }

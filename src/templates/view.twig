@@ -4,12 +4,12 @@
 {% set title = "Report: "~report.name %}
 
 {% set crumbs = [
-	{ label: "Reports"|t, url: url('reports') }
+	{ label: "DNA Reports"|t, url: url('dnareports') }
 ] %}
 
 
 {% block actionButton %}
-  {% if currentUser.can('reports-exportReports') %}
+  {% if currentUser.can('dnareports-exportReports') %}
   <div class="buttons right">
 	<button type="button" id="export-btn" class="btn" data-id="{{report.id}}">{{ 'Export…'|t('app') }}</button>
   </div>
@@ -82,5 +82,5 @@
 
 
 {% js %}
-  new Reports.Export($('#main'));
+  new DNAReports.Export($('#main'));
 {% endjs %}

@@ -3,7 +3,7 @@
 /**
  * Table Element Index View
  */
-Reports.DataTable = Garnish.Base.extend({
+DNAReports.DataTable = Garnish.Base.extend({
   $table: null,
   $tableCaption: null,
   $selectedSortHeader: null,

@@ -30,7 +30,7 @@ class Reports extends Plugin
 {
 	public static $plugin;
 	
-	public string $schemaVersion = '1.0.1';
+	public string $schemaVersion = '1.0.2';
 	
 	public bool $hasCpSettings = true;
 	
@@ -54,11 +54,11 @@ class Reports extends Plugin
 			UrlManager::class, 
 			UrlManager::EVENT_REGISTER_CP_URL_RULES, 
 			function (RegisterUrlRulesEvent $event) {
-				$event->rules['reports'] = 'reports/reports/index';
-				$event->rules['reports/view/<id:\d+>'] = 'reports/reports/view';
-				$event->rules['reports/export'] = 'reports/reports/export';
-				$event->rules['reports/<type:[-\w]+>'] = 'reports/reports/edit';
-				$event->rules['reports/<type:[-\w]+>/<id:\d+>'] = 'reports/reports/edit';
+				$event->rules['dnareports'] = 'dnareports/reports/index';
+				$event->rules['dnareports/view/<id:\d+>'] = 'dnareports/reports/view';
+				$event->rules['dnareports/export'] = 'dnareports/reports/export';
+				$event->rules['dnareports/<type:[-\w]+>'] = 'dnareports/reports/edit';
+				$event->rules['dnareports/<type:[-\w]+>/<id:\d+>'] = 'dnareports/reports/edit';
 			}
 		);
 		
@@ -67,19 +67,19 @@ class Reports extends Plugin
 			UserPermissions::EVENT_REGISTER_PERMISSIONS, 
 			function (RegisterUserPermissionsEvent $event) {
 				$event->permissions[] = [
-					'heading' => Craft::t('reports', 'Reports'),
+					'heading' => Craft::t('dnareports', 'Reports'),
 					'permissions' => [
-						'reports-viewReports' => [
-							'label' => Craft::t('reports', 'View Reports'),
+						'dnareports-viewReports' => [
+							'label' => Craft::t('dnareports', 'View Reports'),
 						],
-						'reports-editReports' => [
-							'label' => Craft::t('reports', 'Edit Reports'),
+						'dnareports-editReports' => [
+							'label' => Craft::t('dnareports', 'Edit Reports'),
 						],
-						'reports-generateReports' => [
-							'label' => Craft::t('reports', 'Generate Reports'),
+						'dnareports-generateReports' => [
+							'label' => Craft::t('dnareports', 'Generate Reports'),
 						],
-						'reports-exportReports' => [
-							'label' => Craft::t('reports', 'Export Reports'),
+						'dnareports-exportReports' => [
+							'label' => Craft::t('dnareports', 'Export Reports'),
 						],
 					]
 				];
@@ -92,11 +92,11 @@ class Reports extends Plugin
 			function (Event $event) {
 				/** @var CraftVariable $variable */
 				$variable = $event->sender;
-				$variable->set('reports', ReportsVariable::class);
+				$variable->set('dnareports', ReportsVariable::class);
 			}
 		);
 		
-		Craft::info(Craft::t('reports', '{name} plugin loaded', ['name' => $this->name]), __METHOD__);
+		Craft::info(Craft::t('dnareports', '{name} plugin loaded', ['name' => $this->name]), __METHOD__);
 	}
 	
 	// Protected Methods
@@ -116,7 +116,7 @@ class Reports extends Plugin
 	protected function settingsHtml(): string
 	{
 		return Craft::$app->view->renderTemplate(
-			'reports/settings',
+			'dnareports/settings',
 			[
 				'settings' => $this->getSettings()
 			]

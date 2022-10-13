@@ -1,11 +1,11 @@
 {% extends "_layouts/cp" %}
 {% import "_includes/forms" as forms %}
 
-{% set title = "Reports" %}
+{% set title = "DNA Reports" %}
 {% set selectedSubnavItem = 'reports' %}
 
 {% block actionButton %}
-  {% if currentUser.can('reports-editReports') %}
+  {% if currentUser.can('dnareports-editReports') %}
   <div class="buttons right">
 	<div class="newwidget btngroup">
 	  <div id="newwidgetmenubtn" class="btn submit menubtn add icon">{{ 'New report'|t }}</div>
@@ -14,7 +14,7 @@
 		<ul>
 		  {% for type in types %}
 			<li>
-			  <a href="{{ url('reports/'~type) }}" data-type="{{ type }}" data-name="{{ type }}">
+			  <a href="{{ url('dnareports/'~type) }}" data-type="{{ type }}" data-name="{{ type }}">
 				{{ type|replace('_',' ')|title }}
 			  </a>
 			</li>
@@ -45,8 +45,8 @@
 			{% for report in reports %}
 				<tr data-id="{{ report.id }}" data-name="{{ report.name|t }}" data-generating="{{ report.isGenerating }}">
 					<th scope="row" data-title="{{ 'Name'|t }}">
-						{% if currentUser.can('reports-editReports') %}
-						<a href="{{ url('reports/edit/' ~ report.id) }}" class="edit {{ report.isGenerating ? 'disabled' }}">{{ report.name|t }}</a>
+						{% if currentUser.can('dnareports-editReports') %}
+						<a href="{{ url('dnareports/edit/' ~ report.id) }}" class="edit {{ report.isGenerating ? 'disabled' }}">{{ report.name|t }}</a>
 						{% else %}
 						{{ report.name|t }}
 						{% endif %}
@@ -59,12 +59,12 @@
 						{% endif %}
 					</td>
 					<td class="thin">
-					{% if currentUser.can('reports-viewReports') %}
-						<a class="btn view {{ report.isGenerating or not report.lastGenerated ? 'hidden' }}" title="{{ 'View'|t }}" href="{{ url('reports/view/' ~ report.id) }}" data-icon="view">View</a>
+					{% if currentUser.can('dnareports-viewReports') %}
+						<a class="btn view {{ report.isGenerating or not report.lastGenerated ? 'hidden' }}" title="{{ 'View'|t }}" href="{{ url('dnareports/view/' ~ report.id) }}" data-icon="view">View</a>
 					{% endif %}
 					</td>
 					<td class="thin">
-					{% if currentUser.can('reports-generateReports') %}
+					{% if currentUser.can('dnareports-generateReports') %}
 						<a class="run submit btn icon add {{ report.isGenerating ? 'loading' }}" role="button" title="{{ 'Run'|t }}">
 							<div class="label">Generate</div>
 							<div class="spinner spinner-absolute"></div>
@@ -72,7 +72,7 @@
 					{% endif %}
 					</td>
 					<td class="thin">
-					{% if currentUser.can('reports-editReports') %}
+					{% if currentUser.can('dnareports-editReports') %}
 						<a class="delete icon" title="{{ 'Delete'|t }}" role="button"></a>
 					{% endif %}
 					</td>
@@ -99,7 +99,7 @@
 	new Craft.AdminTable({
 		tableSelector: '#reports',
 		noItemsSelector: '#noReports',
-		deleteAction: 'reports/reports/delete'
+		deleteAction: 'dnareports/reports/delete'
 	});
 
 	$('#reports tr[data-id]').each(function(){
@@ -116,7 +116,7 @@
 			$tr.find('a.run').addClass('loading');
 			//$tr.find('[data-status]').text('GENERATING...');
 
-			Craft.postActionRequest('reports/reports/run', {id:$tr.attr('data-id')}, (response, textStatus) => {
+			Craft.postActionRequest('dnareports/reports/run', {id:$tr.attr('data-id')}, (response, textStatus) => {
 				if (textStatus === 'success') {
 					Craft.cp.displayNotice($tr.attr('data-name')+' report has successfully started');
 					pollReportStatus($tr.attr('data-id'), $tr.attr('data-name'));
@@ -135,7 +135,7 @@
 	})
 
 	function pollReportStatus($id, $name) {
-		Craft.postActionRequest('reports/reports/get-status', {id:$id}, (response, textStatus) => {
+		Craft.postActionRequest('dnareports/reports/get-status', {id:$id}, (response, textStatus) => {
 			console.log(response)
 			if (response.isGenerating == '1') {
 				setTimeout(function(){

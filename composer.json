@@ -2,7 +2,7 @@
 	"name": "webdna/reports",
 	"description": "Reports",
 	"type": "craft-plugin",
-	"version": "2.2.0",
+	"version": "2.3.0",
 	"keywords": [
 		"craft",
 		"cms",
@@ -30,10 +30,12 @@
 		}
 	},
 	"extra": {
-		"name": "Reports",
-		"handle": "reports",
+		"name": "DNA Reports",
+		"handle": "dnareports",
 		"developer": "WebDNA",
 		"developerUrl": "https://webdna.co.uk",
+		"documentationUrl": "https://github.com/webdna/reports",
+		"changelogUrl": "https://raw.githubusercontent.com/webdna/reports/master/CHANGELOG.md",
 		"class": "webdna\\reports\\Reports"
 	}
 }

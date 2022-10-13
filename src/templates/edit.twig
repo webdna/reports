@@ -1,10 +1,10 @@
 {% extends "_layouts/cp" %}
 {% import "_includes/forms" as forms %}
 
-{% if report.id > 0 and not currentUser.can('reports-viewReports') %}
+{% if report.id > 0 and not currentUser.can('dnareports-viewReports') %}
 	{% redirect 'reports' %}
 {% endif %}
-{% if report.id == null and not currentUser.can('reports-editReports') %}
+{% if report.id == null and not currentUser.can('dnareports-editReports') %}
 	{% redirect 'reports' %}
 {% endif %}
 
@@ -12,14 +12,14 @@
 {% set title = report.id ? "Edit report" : "Create " ~ report.type|replace('_', ' ')|title ~ " report" %}
 
 {% set crumbs = [
-	{ label: "Reports"|t, url: url('reports') }
+	{ label: "DNA Reports"|t, url: url('dnareports') }
 ] %}
 
 {% set fullPageForm = true %}
 
 {% block content %}
 
-	<input type="hidden" name="action" value="reports/reports/save" />
+	<input type="hidden" name="action" value="dnareports/reports/save" />
 	<input type="hidden" name="type" value="{{ report.type }}" />
 
 	{% if report.id %}
