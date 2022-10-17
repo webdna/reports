@@ -1,6 +1,6 @@
 {
 	"name": "webdna/reports",
-	"description": "Reports",
+	"description": "Custom Reports",
 	"type": "craft-plugin",
 	"version": "2.3.0",
 	"keywords": [
@@ -30,7 +30,7 @@
 		}
 	},
 	"extra": {
-		"name": "Reports",
+		"name": "DNA Reports",
 		"handle": "dnareports",
 		"developer": "WebDNA",
 		"developerUrl": "https://webdna.co.uk",
