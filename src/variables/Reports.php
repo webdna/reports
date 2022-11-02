@@ -187,7 +187,7 @@ class Reports
         return null;
     }
     
-    public function update($id, $data = null)
+    public function update($id, $data = null): void
     {
         $table = Craft::$app->db->quoteTableName('{{%dnareports}}');
         
