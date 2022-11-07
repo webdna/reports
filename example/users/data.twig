@@ -3,7 +3,7 @@
 {% set users = craft.dnareports.configure(craft.users, 'dateUpdated', options) %}
 
 {% if options.userGroupId %}
-	{% set users = users.userGroupId(options.userGroupId) %}
+	{% set users = users.groupId(options.userGroupId) %}
 {% endif %}
 
 {% set users = users.limit(null).all() %}
@@ -14,7 +14,7 @@
 			"id":"{{ user.id }}",
 			"firstName":"{{ user.firstName }}",
 			"lastName":"{{ user.lastName }}",
-			"date":"{{ user.dateCreated|date('ATOM') }}",
+			"date":"{{ user.dateCreated|date('Y-m-d H:i') }}",
 			"email":"{{ user.email }}"
 		}{{ not loop.last ? ',' }}
 	{% endfor %}
