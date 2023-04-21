@@ -33,7 +33,7 @@ class Reports
         {
             case 'Custom':
                 if (!empty($options['dateRange']['startDate'])) {
-                    $startDate = DateTimeHelper::toDateTime($options['dateRange']['startDate']);
+                    $startDate = DateTimeHelper::toDateTime($options['dateRange']['startDate'])->setTime(0,0,0);
                 }
                 if (!empty($options['dateRange']['endDate'])) {
                     $endDate = DateTimeHelper::toDateTime($options['dateRange']['endDate']);
@@ -52,7 +52,7 @@ class Reports
                 break;
                 
             case 'This Week':
-                $startDate = DateTimeHelper::toDateTime(strtotime('last monday', strtotime('tomorrow')));
+                $startDate = DateTimeHelper::toDateTime(strtotime('last monday', strtotime('tomorrow')))->setTime(0,0,0);
                 $endDate = (clone $startDate)->add(new DateInterval('P1W'));
                 break;
             
@@ -62,7 +62,7 @@ class Reports
                 break;
                 
             case 'This Year':
-                $startDate = DateTimeHelper::toDateTime(strtotime('first day of January'));
+                $startDate = DateTimeHelper::toDateTime(strtotime('first day of January'))->setTime(0,0,0);
                 $endDate = (clone $startDate)->add(new DateInterval('P1Y'));
                 break;
                 
@@ -87,7 +87,7 @@ class Reports
                 break;
                 
             case 'This Financial Year':
-                $startDate = DateTimeHelper::toDateTime(strtotime('first day of April'));
+                $startDate = DateTimeHelper::toDateTime(strtotime('first day of April'))->setTime(0,0,0);
                 $endDate = (clone $startDate)->add(new DateInterval('P1Y'));
                 break;
         }
@@ -117,10 +117,10 @@ class Reports
         {
             case 'Custom':
                 if (!empty($options['dateRange']['startDate'])) {
-                    $startDate = new \DateTime($options['dateRange']['startDate']);
+                    $startDate = DateTimeHelper::toDateTime($options['dateRange']['startDate'])->setTime(0,0,0);
                 }
                 if (!empty($options['dateRange']['endDate'])) {
-                    $endDate = new \DateTime($options['dateRange']['endDate']);
+                    $endDate = DateTimeHelper::toDateTime($options['dateRange']['endDate']);
                     $endDate->setTime(0,0,0)->add(new DateInterval('P1D'));
                 }
                 break;
@@ -136,7 +136,7 @@ class Reports
                 break;
                 
             case 'This Week':
-                $startDate = DateTimeHelper::toDateTime(strtotime('last monday', strtotime('tomorrow')));
+                $startDate = DateTimeHelper::toDateTime(strtotime('last monday', strtotime('tomorrow')))->setTime(0,0,0);
                 $endDate = (clone $startDate)->add(new DateInterval('P1W'));
                 break;
             
@@ -146,7 +146,7 @@ class Reports
                 break;
                 
             case 'This Year':
-                $startDate = DateTimeHelper::toDateTime(strtotime('first day of January'));
+                $startDate = DateTimeHelper::toDateTime(strtotime('first day of January'))->setTime(0,0,0);
                 $endDate = (clone $startDate)->add(new DateInterval('P1Y'));
                 break;
                 
@@ -171,7 +171,7 @@ class Reports
                 break;
                 
             case 'This Financial Year':
-                $startDate = DateTimeHelper::toDateTime(strtotime('first day of April'));
+                $startDate = DateTimeHelper::toDateTime(strtotime('first day of April'))->setTime(0,0,0);
                 $endDate = (clone $startDate)->add(new DateInterval('P1Y'));
                 break;
         }
