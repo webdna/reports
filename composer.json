@@ -2,6 +2,7 @@
 	"name": "webdna/reports",
 	"description": "Custom Reports",
 	"type": "craft-plugin",
+	"version": "2.4.0",
 	"keywords": [
 		"craft",
 		"cms",
