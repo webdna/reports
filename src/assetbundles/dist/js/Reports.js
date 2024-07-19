@@ -65,7 +65,7 @@ DNAReports.Options.DateRange = Garnish.Base.extend({
 			'Past 30 Days',
 			'Past 90 Days',
 			'Past Year',
-			'This Finanical Year',
+			'This Financial Year',
 		]
 	}
 });
