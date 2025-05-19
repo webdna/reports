@@ -17,6 +17,8 @@ use craft\helpers\Db;
 use craft\helpers\StringHelper;
 use yii\base\Behavior;
 use DateInterval;
+use webdna\reports\models\Report;
+use webdna\reports\Reports as Plugin;
 
 class Reports
 {
@@ -83,6 +85,14 @@ class Reports
         }
         
         return false;
+    }
+
+    public function getReportById(int $reportId): ?Report
+    {
+        if (!$reportId) {
+            return null;
+        }
+        return Plugin::getInstance()->service->getReportById($reportId);
     }
     
     

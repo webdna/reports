@@ -38,12 +38,15 @@ class Reports extends Component
 	// Public Methods
 	// =========================================================================
 	
-	public function getReportById(int $id): ReportModel
+	public function getReportById(int $id): ?ReportModel
 	{
 		$result = $this->_createReportQuery()
 			->where(['id' => $id])
 			->one();
-	
+
+		if (empty($result)) {
+			return null;
+		}
 		return new ReportModel($result);
 	}
 	

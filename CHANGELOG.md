@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.4.3 - 0225-05-19
+### Added
+- Added getReportById function to dnareports craft variable
+
 ## 2.4.2 - 2024-07-19
 ### Fixed
 - Fixed a typo when selecting the "This Financial Year" date range.
