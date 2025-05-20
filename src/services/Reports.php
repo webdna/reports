@@ -28,9 +28,20 @@ use craft\helpers\Template as TemplateHelper;
 use craft\helpers\DateTimeHelper;
 use craft\helpers\Json;
 use craft\helpers\Db;
+use webdna\reports\events\ReportGenerationEvent;
 
 class Reports extends Component
 {
+
+	/**
+     * @event ReportGenerationEvent The event that is triggered when a report is generated before it is saved.
+     *
+     * You may set [[webdna\reports\events::$isValid]] to `false` to prevent the report from being saved.
+     *
+     * @since 2.4.3
+     */
+    public const EVENT_AFTER_REPORT_GENERATED = 'afterReportGenerated';
+
 	private array $_data = [];
 	
 	private string $defaultPath = '_reports';
@@ -87,6 +98,21 @@ class Reports extends Component
 		}
 		$record->lastGenerated = $model->lastGenerated;
 		$record->isGenerating = $model->isGenerating;
+
+		if ($model->isGenerating == false && !empty($model->data)) {
+			// lets give plugins/modules the chance to do something (readonly) with report once generated
+			if ($this->hasEventHandlers(self::EVENT_AFTER_REPORT_GENERATED)) {
+				$event = new ReportGenerationEvent([
+					'report' => $model,
+					'isValid' => true,
+				]);
+				$this->trigger(self::EVENT_AFTER_REPORT_GENERATED, $event);
+
+				if (!$event->isValid) {
+					return false;
+				}
+			}
+		}
 		
 		//Craft::dd($record->options);
 	

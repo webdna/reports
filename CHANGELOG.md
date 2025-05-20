@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## 2.4.3 - 0225-05-19
 ### Added
 - Added getReportById function to dnareports craft variable
+- Added ReportGenerationEvent to allow plugins/modules access to report after generation.
 
 ## 2.4.2 - 2024-07-19
 ### Fixed
