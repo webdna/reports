@@ -20,6 +20,8 @@ use craft\helpers\DateTimeHelper;
 use craft\helpers\UrlHelper;
 use craft\helpers\StringHelper;
 use craft\helpers\Json;
+use yii\web\BadRequestHttpException;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 class ReportsController extends Controller
@@ -94,7 +96,7 @@ class ReportsController extends Controller
 		]);
 	}
 	
-	public function actionSave(): void
+	public function actionSave(): ?Response
 	{
 		$this->requirePermission('dnareports-editReports');
 		
@@ -136,7 +138,7 @@ class ReportsController extends Controller
 		//$report->email = StringHelper::stripWhitespace($request->getParam('email', $user->email));
 	
 		if (Reports::$plugin->service->saveReport($report)) {
-			$this->redirect("dnareports");
+			return $this->redirect("dnareports");
 		}
 		
 		Craft::$app->getSession()->setError(Craft::t('app', 'Couldn’t save report.'));
@@ -146,6 +148,8 @@ class ReportsController extends Controller
 			'report' => $report,
 			'options' => Reports::$plugin->service->getOptions($report)
 		]);
+
+		return null;
 	}
 	
 	public function actionRun(): Response
@@ -203,6 +207,10 @@ class ReportsController extends Controller
 	
 		if (!$report) {
 			throw new NotFoundHttpException('Report not found');
+		}
+
+		if (!$report->lastGenerated) {
+			throw new BadRequestHttpException('Report has not been generated yet');
 		}
 	
 		$this->response->format = $this->request->getBodyParam('format', 'csv');

@@ -51,7 +51,7 @@
 						{{ report.name|t }}
 						{% endif %}
 					</th>
-					<td data-title="{{ 'Range'|t }}">{{ report.options|json_decode.dateRange.type }}</td>
+					<td data-title="{{ 'Range'|t }}">{{ (report.options|json_decode).dateRange.type ?? 'All' }}</td>
 					<td data-title="{{ 'Type'|t }}"><code>{{ report.type }}</code></td>
 					<td data-title="{{ 'Date'|t }}" data-status>
 						{% if report.lastGenerated ?? null %}

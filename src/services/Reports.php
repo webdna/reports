@@ -18,6 +18,7 @@ use webdna\reports\assetbundles\ReportsAsset;
 
 use Craft;
 use craft\base\Component;
+use yii\base\Exception;
 use yii\db\Expression;
 use craft\web\View;
 use craft\db\Query;
@@ -78,7 +79,7 @@ class Reports extends Component
 		if ($model->id) {
 			$record = ReportRecord::findOne($model->id);
 	
-			if (!$record->id) {
+			if (!$record) {
 				throw new Exception(Craft::t('dnareports', 'No report exists with the ID "{id}"', ['id' => $model->id]));
 			}
 		} else {

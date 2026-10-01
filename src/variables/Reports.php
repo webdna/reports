@@ -104,7 +104,7 @@ class Reports
         $today = DateTimeHelper::toDateTime(strtotime('today'));
         $today->setTime(0,0,0);
         
-        switch ($options['dateRange']['type'])
+        switch ($options['dateRange']['type'] ?? 'All')
         {
             case 'Custom':
                 if (!empty($options['dateRange']['startDate'])) {

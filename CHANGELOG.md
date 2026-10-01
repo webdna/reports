@@ -9,6 +9,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Added getReportById function to dnareports craft variable
 - Added ReportGenerationEvent to allow plugins/modules access to report after generation.
 
+### Fixed
+- Fixed a false “Couldn’t save report.” error after a report saved successfully.
+- Fixed “report not found” throwing a class-not-found error instead of a 404.
+- Fixed exporting a report that has never been generated causing a server error.
+- Fixed reports with no date range option failing to generate or list.
+
 ## 2.4.2 - 2024-07-19
 ### Fixed
 - Fixed a typo when selecting the "This Financial Year" date range.
