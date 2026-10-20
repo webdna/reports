@@ -164,5 +164,6 @@ ddev craft dnareports/reports/generate --report=<id> --path=@storage/reports
   JSON leaves `isGenerating` 0; CP Export byte-identical for csv/json/xml; CP Run works through
   the shared generator; both README jobs listed by `schedule-it/list`. Found while building:
   an unwritable folder used to fail only after regenerating (now refused first, R2), and the
-  env-var quoting trap (R2). Not run end to end: a job firing through `schedule-it/run` -
-  another session reset craft5's database mid-test (plugin uninstalled), so it was left there.
+  env-var quoting trap (R2). Then end to end: two jobs fired through `schedule-it/run` (alias
+  CSV, quoted `$REPORTS_EXPORT_PATH` xlsx), both exit 0 with their files written. Released as
+  2.5.0, folding the never-tagged 2.4.3 into it.

@@ -2,7 +2,7 @@
 
 ## Requirements
 
-This plugin requires Craft CMS 3+
+This plugin requires Craft CMS 4 or 5.
 
 
 ## Installation

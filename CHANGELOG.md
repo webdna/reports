@@ -4,9 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 2.5.0 - Unreleased
+## 2.5.0 - 2026-10-20
 ### Added
 - Added the `dnareports/reports/generate` console command, which generates a report and writes its export (CSV, JSON, XML or XLSX) to a folder, so reports can be produced on a schedule with Schedule-it or cron. ([#2](https://github.com/webdna/reports/issues/2))
+- Added getReportById function to dnareports craft variable
+- Added ReportGenerationEvent to allow plugins/modules access to report after generation.
 
 ### Changed
 - The control panel's Run and Export, and the new command, share one generator and one exporter.
@@ -14,13 +16,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ### Fixed
 - A report whose type returns invalid JSON no longer stays marked as generating.
-
-## 2.4.3 - 0225-05-19
-### Added
-- Added getReportById function to dnareports craft variable
-- Added ReportGenerationEvent to allow plugins/modules access to report after generation.
-
-### Fixed
 - Fixed a false “Couldn’t save report.” error after a report saved successfully.
 - Fixed “report not found” throwing a class-not-found error instead of a 404.
 - Fixed exporting a report that has never been generated causing a server error.
