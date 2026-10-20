@@ -20,6 +20,8 @@ use craft\helpers\DateTimeHelper;
 use craft\helpers\UrlHelper;
 use craft\helpers\StringHelper;
 use craft\helpers\Json;
+use craft\helpers\FileHelper;
+use yii\base\InvalidArgumentException;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -213,26 +215,18 @@ class ReportsController extends Controller
 			throw new BadRequestHttpException('Report has not been generated yet');
 		}
 	
-		$this->response->format = $this->request->getBodyParam('format', 'csv');
-	
-		$filename = $report->name . '-'.(DateTimeHelper::toDateTime($report->lastGenerated)->format('Y-m-d_H-i-s'));
-		$filename .= '.'.$this->response->format;
-	
-		switch ($this->response->format) {
-			case Response::FORMAT_JSON:
-				$this->response->formatters[Response::FORMAT_JSON]['prettyPrint'] = true;
-				break;
-			case Response::FORMAT_XML:
-				Craft::$app->language = 'en-US';
-				$this->response->formatters[Response::FORMAT_XML]['rootTag'] = StringHelper::toCamelCase($report->name);
-				break;
+		$format = $this->request->getBodyParam('format', 'csv');
+
+		try {
+			$content = Reports::$plugin->service->exportReport($report, $format);
+		} catch (InvalidArgumentException $e) {
+			throw new BadRequestHttpException($e->getMessage());
 		}
-	
-		$this->response->setDownloadHeaders($filename);
-	
-		$this->response->data = Json::decode($report->data);
-	
-	
-		return $this->response;
+
+		$filename = Reports::$plugin->service->getExportFilename($report, $format);
+
+		return $this->response->sendContentAsFile($content, $filename, [
+			'mimeType' => FileHelper::getMimeTypeByExtension($filename) ?? 'application/octet-stream',
+		]);
 	}
 }

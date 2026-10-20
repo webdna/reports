@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.5.0 - Unreleased
+### Added
+- Added the `dnareports/reports/generate` console command, which generates a report and writes its export (CSV, JSON, XML or XLSX) to a folder, so reports can be produced on a schedule with Schedule-it or cron. ([#2](https://github.com/webdna/reports/issues/2))
+
+### Changed
+- The control panel's Run and Export, and the new command, share one generator and one exporter.
+- Exported file names are sanitised, so spaces in a report name become hyphens.
+
+### Fixed
+- A report whose type returns invalid JSON no longer stays marked as generating.
+
 ## 2.4.3 - 0225-05-19
 ### Added
 - Added getReportById function to dnareports craft variable
