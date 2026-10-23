@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.5.1 - 2026-10-23
+### Changed
+- New plugin icon: a white glyph on a black circle, with a white icon mask for the control panel nav.
+
 ## 2.5.0 - 2026-10-20
 ### Added
 - Added the `dnareports/reports/generate` console command, which generates a report and writes its export (CSV, JSON, XML or XLSX) to a folder, so reports can be produced on a schedule with Schedule-it or cron. ([#2](https://github.com/webdna/reports/issues/2))
